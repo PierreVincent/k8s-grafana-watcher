@@ -1,0 +1,163 @@
+memo = "b038ac29f98d9810aadda3671dda6b9584f51ec5504a1e42400200368c488b02"
+
+[[projects]]
+  name = "cloud.google.com/go"
+  packages = ["compute/metadata"]
+  revision = "a5913b3f7deecba45e98ff33cefbac4fd204ddd7"
+  version = "v0.10.0"
+
+[[projects]]
+  name = "github.com/blang/semver"
+  packages = ["."]
+  revision = "b38d23b8782a487059e8fc8773e9a5b228a77cb6"
+  version = "v3.5.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/coreos/go-oidc"
+  packages = ["http","jose","key","oauth2","oidc"]
+  revision = "d68c0e2fef598f5bbf15edd34905f4bf551a54ec"
+
+[[projects]]
+  name = "github.com/coreos/pkg"
+  packages = ["health","httputil","timeutil"]
+  revision = "3ac0863d7acf3bc44daf49afef8919af12f704ef"
+  version = "v3"
+
+[[projects]]
+  name = "github.com/davecgh/go-spew"
+  packages = ["spew"]
+  revision = "346938d642f2ec3594ed81d874461961cd0faa76"
+  version = "v1.1.0"
+
+[[projects]]
+  name = "github.com/docker/distribution"
+  packages = ["digest","reference"]
+  revision = "a25b9ef0c9fe242ac04bb20d3a028442b7d266b6"
+  version = "v2.6.1"
+
+[[projects]]
+  name = "github.com/emicklei/go-restful"
+  packages = [".","log","swagger"]
+  revision = "777bb3f19bcafe2575ffb2a3e46af92509ae9594"
+  version = "v1.2"
+
+[[projects]]
+  name = "github.com/ghodss/yaml"
+  packages = ["."]
+  revision = "0ca9ea5df5451ffdf184b4428c902747c2c11cd7"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "github.com/gogo/protobuf"
+  packages = ["proto","sortkeys"]
+  revision = "100ba4e885062801d56799d78530b73b178a78f3"
+  version = "v0.4"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/golang/glog"
+  packages = ["."]
+  revision = "23def4e6c14b4da8ac2ed8007337bc5eb5007998"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/golang/protobuf"
+  packages = ["proto"]
+  revision = "6a1fa9404c0aebf36c879bc50152edcc953910d2"
+
+[[projects]]
+  name = "github.com/google/cadvisor"
+  packages = ["info/v1"]
+  revision = "d19cc94b760cd8f150a0a5d95b404dec39a121a1"
+  version = "v0.26.1"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/google/gofuzz"
+  packages = ["."]
+  revision = "24818f796faf91cd76ec7bddd72458fbced7a6c1"
+
+[[projects]]
+  name = "github.com/jonboulle/clockwork"
+  packages = ["."]
+  revision = "2eee05ed794112d45db504eb05aa693efd2b8b09"
+  version = "v0.1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/juju/ratelimit"
+  packages = ["."]
+  revision = "5b9ff866471762aa2ab2dced63c9fb6f53921342"
+
+[[projects]]
+  name = "github.com/pborman/uuid"
+  packages = ["."]
+  revision = "a97ce2ca70fa5a848076093f05e639a89ca34d06"
+  version = "v1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/spf13/pflag"
+  packages = ["."]
+  revision = "e57e3eeb33f795204c1ca35f56c44f83227c6e66"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/ugorji/go"
+  packages = ["codec"]
+  revision = "5efa3251c7f7d05e5d9704a69a984ec9f1386a40"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/net"
+  packages = ["context","context/ctxhttp","http2","http2/hpack","idna","lex/httplex"]
+  revision = "1f9224279e98554b6a6432d4dd998a739f8b2b7c"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/oauth2"
+  packages = [".","google","internal","jws","jwt"]
+  revision = "cce311a261e6fcf29de72ca96827bdb0b7d9c9e6"
+
+[[projects]]
+  branch = "master"
+  name = "golang.org/x/text"
+  packages = ["internal/gen","internal/triegen","internal/ucd","secure/bidirule","transform","unicode/bidi","unicode/cldr","unicode/norm","unicode/rangetable"]
+  revision = "2bf8f2a19ec09c670e931282edfe6567f6be21c9"
+
+[[projects]]
+  name = "google.golang.org/appengine"
+  packages = [".","internal","internal/app_identity","internal/base","internal/datastore","internal/log","internal/modules","internal/remote_api","internal/urlfetch","urlfetch"]
+  revision = "150dc57a1b433e64154302bdc40b6bb8aefa313a"
+  version = "v1.0.0"
+
+[[projects]]
+  name = "gopkg.in/cheggaaa/mb.v1"
+  packages = ["."]
+  revision = "a8be81e1aabcaa49871809492ab5fc13b746d542"
+  version = "v1.0.2"
+
+[[projects]]
+  name = "gopkg.in/inf.v0"
+  packages = ["."]
+  revision = "3887ee99ecf07df5b447e9b00d9c0b2adaa9f3e4"
+  version = "v0.9.0"
+
+[[projects]]
+  branch = "v2"
+  name = "gopkg.in/yaml.v2"
+  packages = ["."]
+  revision = "cd8b52f8269e0feb286dfeef29f8fe4d5b397e0b"
+
+[[projects]]
+  name = "k8s.io/client-go"
+  packages = ["1.4/pkg/api","1.4/pkg/api/endpoints","1.4/pkg/api/errors","1.4/pkg/api/meta","1.4/pkg/api/meta/metatypes","1.4/pkg/api/pod","1.4/pkg/api/resource","1.4/pkg/api/service","1.4/pkg/api/unversioned","1.4/pkg/api/unversioned/validation","1.4/pkg/api/util","1.4/pkg/api/v1","1.4/pkg/api/validation","1.4/pkg/apimachinery","1.4/pkg/apimachinery/registered","1.4/pkg/apis/autoscaling","1.4/pkg/apis/batch","1.4/pkg/apis/extensions","1.4/pkg/auth/user","1.4/pkg/capabilities","1.4/pkg/conversion","1.4/pkg/conversion/queryparams","1.4/pkg/fields","1.4/pkg/labels","1.4/pkg/runtime","1.4/pkg/runtime/serializer","1.4/pkg/runtime/serializer/json","1.4/pkg/runtime/serializer/protobuf","1.4/pkg/runtime/serializer/recognizer","1.4/pkg/runtime/serializer/streaming","1.4/pkg/runtime/serializer/versioning","1.4/pkg/security/apparmor","1.4/pkg/selection","1.4/pkg/third_party/forked/golang/reflect","1.4/pkg/types","1.4/pkg/util","1.4/pkg/util/clock","1.4/pkg/util/config","1.4/pkg/util/crypto","1.4/pkg/util/errors","1.4/pkg/util/flowcontrol","1.4/pkg/util/framer","1.4/pkg/util/hash","1.4/pkg/util/integer","1.4/pkg/util/intstr","1.4/pkg/util/json","1.4/pkg/util/labels","1.4/pkg/util/net","1.4/pkg/util/net/sets","1.4/pkg/util/parsers","1.4/pkg/util/rand","1.4/pkg/util/runtime","1.4/pkg/util/sets","1.4/pkg/util/uuid","1.4/pkg/util/validation","1.4/pkg/util/validation/field","1.4/pkg/util/wait","1.4/pkg/util/yaml","1.4/pkg/version","1.4/pkg/watch","1.4/pkg/watch/versioned","1.4/rest","1.4/tools/clientcmd/api","1.4/tools/metrics","1.4/transport"]
+  revision = "3a5b96cfd3d3ff1d53d979b4297c4f3b869aab09"
+  version = "v1.4.0"
+
+[[projects]]
+  name = "k8s.io/kubernetes"
+  packages = ["pkg/api","pkg/api/endpoints","pkg/api/errors","pkg/api/install","pkg/api/meta","pkg/api/meta/metatypes","pkg/api/pod","pkg/api/resource","pkg/api/service","pkg/api/unversioned","pkg/api/unversioned/validation","pkg/api/util","pkg/api/v1","pkg/api/validation","pkg/apimachinery","pkg/apimachinery/registered","pkg/apis/apps","pkg/apis/apps/install","pkg/apis/apps/v1alpha1","pkg/apis/authentication","pkg/apis/authentication/install","pkg/apis/authentication/v1beta1","pkg/apis/authorization","pkg/apis/authorization/install","pkg/apis/authorization/v1beta1","pkg/apis/autoscaling","pkg/apis/autoscaling/install","pkg/apis/autoscaling/v1","pkg/apis/batch","pkg/apis/batch/install","pkg/apis/batch/v1","pkg/apis/batch/v2alpha1","pkg/apis/certificates","pkg/apis/certificates/install","pkg/apis/certificates/v1alpha1","pkg/apis/componentconfig","pkg/apis/componentconfig/install","pkg/apis/componentconfig/v1alpha1","pkg/apis/extensions","pkg/apis/extensions/install","pkg/apis/extensions/v1beta1","pkg/apis/policy","pkg/apis/policy/install","pkg/apis/policy/v1alpha1","pkg/apis/rbac","pkg/apis/rbac/install","pkg/apis/rbac/v1alpha1","pkg/apis/storage","pkg/apis/storage/install","pkg/apis/storage/v1beta1","pkg/auth/user","pkg/capabilities","pkg/client/cache","pkg/client/metrics","pkg/client/restclient","pkg/client/transport","pkg/client/typed/discovery","pkg/client/unversioned","pkg/client/unversioned/clientcmd/api","pkg/controller/framework","pkg/conversion","pkg/conversion/queryparams","pkg/fields","pkg/kubelet/qos","pkg/kubelet/types","pkg/labels","pkg/master/ports","pkg/runtime","pkg/runtime/serializer","pkg/runtime/serializer/json","pkg/runtime/serializer/protobuf","pkg/runtime/serializer/recognizer","pkg/runtime/serializer/streaming","pkg/runtime/serializer/versioning","pkg/security/apparmor","pkg/selection","pkg/types","pkg/util","pkg/util/clock","pkg/util/config","pkg/util/crypto","pkg/util/errors","pkg/util/flowcontrol","pkg/util/framer","pkg/util/hash","pkg/util/integer","pkg/util/intstr","pkg/util/json","pkg/util/labels","pkg/util/net","pkg/util/net/sets","pkg/util/parsers","pkg/util/rand","pkg/util/runtime","pkg/util/sets","pkg/util/uuid","pkg/util/validation","pkg/util/validation/field","pkg/util/wait","pkg/util/yaml","pkg/version","pkg/watch","pkg/watch/versioned","plugin/pkg/client/auth","plugin/pkg/client/auth/gcp","plugin/pkg/client/auth/oidc","third_party/forked/golang/reflect"]
+  revision = "a16c0a7f71a6f93c7e0f222d961f4675cd97a46b"
+  version = "v1.4.0"

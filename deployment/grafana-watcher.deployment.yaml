@@ -1,0 +1,62 @@
+---
+
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grafana
+  template:
+    metadata:
+      name: grafana
+      labels:
+        app: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:4.3.2
+        ports:
+        - name: web
+          containerPort: 3000
+          protocol: TCP
+        env:
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "admin"
+      - name: k8s-grafana-watcher
+        image: pierrevincent/k8s-grafana-watcher
+        imagePullPolicy: Always
+        env:
+          - name: CONFIG_MAP_DASHBOARD_ANNOTATION
+            value: "grafana/dashboard"
+          - name: CONFIG_MAP_DATASOURCE_ANNOTATION
+            value: "grafana/datasource"
+          - name: GRAFANA_URL
+            value: "http://localhost:3000"
+          - name: GRAFANA_USERNAME
+            value: "admin"
+          - name: GRAFANA_PASSWORD
+            value: "admin"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: grafana
+  namespace: monitoring
+spec:
+  type: NodePort
+  ports:
+  - name: "web"
+    port: 3000
+    protocol: TCP
+    targetPort: web
+    nodePort: 30001
+  selector:
+    app: grafana
+status:
+  loadBalancer: {}

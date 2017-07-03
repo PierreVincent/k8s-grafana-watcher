@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: grafana-prometheus-datasource
+  namespace: monitoring
+  annotations:
+    grafana/datasource: "true"
+data:
+  prometheus: |
+    {
+      "name":"Prometheus",
+      "type":"prometheus",
+      "url":"http://prometheus.monitoring:9090",
+      "access":"proxy",
+      "basicAuth":false
+    }
+
