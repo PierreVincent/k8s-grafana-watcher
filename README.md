@@ -6,6 +6,14 @@ By running this watcher in the same pod as Grafana, dashboards and datasources c
 
 The typical workflow here is that the Grafana dashboards are treated as code and should be pushed through configmaps, rather than manually modified in Grafana itself.
 
+## Docker image
+
+Latest version of this image can be pulled from [Docker Hub](https://hub.docker.com/r/pierrevincent/k8s-grafana-watcher):
+
+```
+pierrevincent/k8s-grafana-watcher
+```
+
 ## Parameters
 
 - `-dashboardAnnotation` (defaults to env `CONFIG_MAP_DASHBOARD_ANNOTATION`): Annotation to indicate configmaps containing Grafana Dashboards
