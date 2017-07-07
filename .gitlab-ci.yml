@@ -1,5 +1,0 @@
-ensure_dependencies:
-- make dep
-
-build_binary:
-- make build
