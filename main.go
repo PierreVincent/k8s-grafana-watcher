@@ -68,6 +68,10 @@ func main() {
 }
 
 func updateWorker(q *mb.MB, kubeClient *kclient.Client) {
+	// TODO: This should really wait for Grafana to be ready instead
+	log.Println("Waiting 60 seconds before starting worker")
+	time.Sleep(60 * time.Second)
+
 	dashboardsLookup := NewConfigMapLookup(*configmapDashboardAnnotation)
 	datasourceLookup := NewConfigMapLookup(*configmapDatasourceAnnotation)
 	log.Printf("Worker started")
