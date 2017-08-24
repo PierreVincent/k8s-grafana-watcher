@@ -1,5 +1,7 @@
 # Kubernetes watcher for Grafana Dashboards and DataSources
 
+[![Docker Build Statu](https://img.shields.io/docker/build/pierrevincent/k8s-grafana-watcher.svg)]() [![Docker Build Statu](https://img.shields.io/docker/pulls/pierrevincent/k8s-grafana-watcher.svg)]()
+
 Enables automatic detection and update of Grafana dashboards and Datasources contained in Kubernetes configmaps.
 
 By running this watcher in the same pod as Grafana, dashboards and datasources can be discovered as Grafana starts and while it's running. This has the benefit of removing the need for persistent storage, while ensuring that a re-scheduled pod will reload configured dashboards.
