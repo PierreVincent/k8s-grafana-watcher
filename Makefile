@@ -20,7 +20,7 @@ build:
         -e CGO_ENABLED=0 \
         -v $(WORKING_DIR):/go/src/github.com/PierreVincent/grafana-watcher \
         -w /go/src/github.com/PierreVincent/grafana-watcher \
-        golang:1.8 go build -v -o bin/main *.go
+        golang:1.8 go build -ldflags="-s -w" -v -o bin/main *.go
 
 # Build docker image
 docker_image:
