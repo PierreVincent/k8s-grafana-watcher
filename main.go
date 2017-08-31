@@ -13,6 +13,8 @@ import (
 	kframework "k8s.io/kubernetes/pkg/controller/framework"
 	kselector "k8s.io/kubernetes/pkg/fields"
 	"k8s.io/kubernetes/pkg/util/wait"
+	"fmt"
+	"net/http"
 )
 
 var (
@@ -67,10 +69,30 @@ func main() {
 	select {}
 }
 
+func waitForGrafanaUp() {
+	grafanaHealthUrl := fmt.Sprintf("%s/api/health", *grafanaUrl)
+	for {
+		resp, err := http.Get(grafanaHealthUrl)
+		grafanaUp := false
+		if err != nil {
+			log.Printf("Failed to request Grafana Health: %s", err)
+		} else if resp.StatusCode != 200 {
+			log.Printf("Grafana Health returned with %d", resp.StatusCode)
+		} else {
+			grafanaUp = true
+		}
+
+		if grafanaUp {
+			break
+		} else {
+			log.Println("Trying Grafana Health again in 60s")
+			time.Sleep(60 * time.Second)
+		}
+	}
+}
+
 func updateWorker(q *mb.MB, kubeClient *kclient.Client) {
-	// TODO: This should really wait for Grafana to be ready instead
-	log.Println("Waiting 60 seconds before starting worker")
-	time.Sleep(60 * time.Second)
+	waitForGrafanaUp()
 
 	dashboardsLookup := NewConfigMapLookup(*configmapDashboardAnnotation)
 	datasourceLookup := NewConfigMapLookup(*configmapDatasourceAnnotation)
