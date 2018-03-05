@@ -16,6 +16,7 @@ import (
 	"fmt"
 	"net/http"
 	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
@@ -34,7 +35,7 @@ var (
 			Name: "grafana_watcher_configmap_updates",
 			Help: "Total number of updates per configmap",
 		},
-		[]string{"name", "namespace", "cmkey", "status"},
+		[]string{"name", "namespace", "status"},
 	)
 )
 
@@ -76,7 +77,9 @@ func main() {
 		log.Printf("Cleaning up.")
 	}()
 
-	select {}
+	// Start the Prometheus listener
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
 }
 
 func waitForGrafanaUp() {
@@ -139,10 +142,10 @@ func refreshDatasource(datasource *ConfigMapEntry) error {
 	log.Printf("Refreshing datasource: %s", datasource.Key)
 	err := grafana.PushDatasource(datasource.Value)
 	if err != nil {
-		configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, datasource.Key, "failed").Inc()
+		configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, "failed").Inc()
 		return err
 	}
-	configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, datasource.Key, "success").Inc()
+	configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, "success").Inc()
 	return nil
 }
 
@@ -164,10 +167,10 @@ func refreshDashboard(dashboard *ConfigMapEntry) error {
 	log.Printf("Refreshing dashboard: %s", dashboard.Key)
 	err := grafana.PushDashboard(dashboard.Value)
 	if err != nil {
-		configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, dashboard.Key, "failed").Inc()
+		configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, "failed").Inc()
 		return err
 	}
-	configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, dashboard.Key, "success").Inc()
+	configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, "success").Inc()
 	return nil
 }
 
