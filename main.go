@@ -30,17 +30,26 @@ var (
 
 	grafana = NewGrafanaUpdater(*grafanaUrl, *grafanaUsername, *grafanaPassword)
 
-	configMapUpdates = prometheus.NewCounterVec(
+	successfulUpdates = prometheus.NewCounterVec(
 		prometheus.CounterOpts{
-			Name: "grafana_watcher_configmap_updates",
-			Help: "Total number of updates per configmap",
+			Name: "k8s_grafana_watcher_success_total",
+			Help: "Total number of successful updates",
 		},
-		[]string{"name", "namespace", "status"},
+		[]string{"name", "namespace"},
+	)
+
+	failedUpdates = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "k8s_grafana_watcher_failures_total",
+			Help: "Total number of failed updates",
+		},
+		[]string{"name", "namespace"},
 	)
 )
 
 func main() {
-	prometheus.MustRegister(configMapUpdates)
+	prometheus.MustRegister(successfulUpdates)
+	prometheus.MustRegister(failedUpdates)
 	flag.Parse()
 
 	if *helpFlag ||
@@ -140,12 +149,14 @@ func updateDatasources(datasourcesLookup *ConfigMapLookup, kubeClient *kclient.C
 
 func refreshDatasource(datasource *ConfigMapEntry) error {
 	log.Printf("Refreshing datasource: %s", datasource.Key)
+	// Zero initialize metric so we can alert by rate
+	failedUpdates.WithLabelValues(datasource.Name, datasource.Namespace)
 	err := grafana.PushDatasource(datasource.Value)
 	if err != nil {
-		configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, "failed").Inc()
+		failedUpdates.WithLabelValues(datasource.Name, datasource.Namespace).Inc()
 		return err
 	}
-	configMapUpdates.WithLabelValues(datasource.Name, datasource.Namespace, "success").Inc()
+	successfulUpdates.WithLabelValues(datasource.Name, datasource.Namespace).Inc()
 	return nil
 }
 
@@ -165,12 +176,14 @@ func updateDashboards(dashboardsLookup *ConfigMapLookup, kubeClient *kclient.Cli
 
 func refreshDashboard(dashboard *ConfigMapEntry) error {
 	log.Printf("Refreshing dashboard: %s", dashboard.Key)
+	// Zero initialize metric so we can alert by rate
+	failedUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace)
 	err := grafana.PushDashboard(dashboard.Value)
 	if err != nil {
-		configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, "failed").Inc()
+		failedUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace).Inc()
 		return err
 	}
-	configMapUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace, "success").Inc()
+	successfulUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace).Inc()
 	return nil
 }
 
