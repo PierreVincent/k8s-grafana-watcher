@@ -15,6 +15,8 @@ import (
 	"k8s.io/kubernetes/pkg/util/wait"
 	"fmt"
 	"net/http"
+	"github.com/prometheus/client_golang/prometheus"
+	"github.com/prometheus/client_golang/prometheus/promhttp"
 )
 
 var (
@@ -27,9 +29,27 @@ var (
 	helpFlag         = flag.Bool("help", false, "")
 
 	grafana = NewGrafanaUpdater(*grafanaUrl, *grafanaUsername, *grafanaPassword)
+
+	successfulUpdates = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "k8s_grafana_watcher_success_total",
+			Help: "Total number of successful updates",
+		},
+		[]string{"name", "namespace"},
+	)
+
+	failedUpdates = prometheus.NewCounterVec(
+		prometheus.CounterOpts{
+			Name: "k8s_grafana_watcher_failures_total",
+			Help: "Total number of failed updates",
+		},
+		[]string{"name", "namespace"},
+	)
 )
 
 func main() {
+	prometheus.MustRegister(successfulUpdates)
+	prometheus.MustRegister(failedUpdates)
 	flag.Parse()
 
 	if *helpFlag ||
@@ -66,7 +86,9 @@ func main() {
 		log.Printf("Cleaning up.")
 	}()
 
-	select {}
+	// Start the Prometheus listener
+	http.Handle("/metrics", promhttp.Handler())
+	go http.ListenAndServe(":8080", nil)
 }
 
 func waitForGrafanaUp() {
@@ -127,10 +149,14 @@ func updateDatasources(datasourcesLookup *ConfigMapLookup, kubeClient *kclient.C
 
 func refreshDatasource(datasource *ConfigMapEntry) error {
 	log.Printf("Refreshing datasource: %s", datasource.Key)
+	// Zero initialize metric so we can alert by rate
+	failedUpdates.WithLabelValues(datasource.Name, datasource.Namespace)
 	err := grafana.PushDatasource(datasource.Value)
 	if err != nil {
+		failedUpdates.WithLabelValues(datasource.Name, datasource.Namespace).Inc()
 		return err
 	}
+	successfulUpdates.WithLabelValues(datasource.Name, datasource.Namespace).Inc()
 	return nil
 }
 
@@ -150,10 +176,14 @@ func updateDashboards(dashboardsLookup *ConfigMapLookup, kubeClient *kclient.Cli
 
 func refreshDashboard(dashboard *ConfigMapEntry) error {
 	log.Printf("Refreshing dashboard: %s", dashboard.Key)
+	// Zero initialize metric so we can alert by rate
+	failedUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace)
 	err := grafana.PushDashboard(dashboard.Value)
 	if err != nil {
+		failedUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace).Inc()
 		return err
 	}
+	successfulUpdates.WithLabelValues(dashboard.Name, dashboard.Namespace).Inc()
 	return nil
 }
 
