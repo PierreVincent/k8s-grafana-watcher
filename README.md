@@ -51,3 +51,7 @@ Feel free to create issues or pull requests if you see anything that can be impr
 ## Credits
 
 This watcher was inspired by the work done on the [Prometheus Rule Loader](https://github.com/nordstrom/prometheusRuleLoader), kudos on the idea!
+
+## License
+
+GNU GPLv3, see [LICENSE](LICENSE)
